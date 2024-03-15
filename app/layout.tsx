@@ -1,9 +1,6 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 
 import "@/app/globals.css";
-
-const font = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Blog app",
@@ -15,7 +12,11 @@ type Props = Readonly<React.PropsWithChildren>;
 export default function Layout({ children }: Props) {
   return (
     <html lang="en">
-      <body className={font.className}>{children}</body>
+      <body>
+        <div className="relative min-h-svh w-full bg-white text-neutral-800">
+          {children}
+        </div>
+      </body>
     </html>
   );
 }
