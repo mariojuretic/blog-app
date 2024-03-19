@@ -1,53 +1,8 @@
 import { ArrowTrendingUpIcon } from "@heroicons/react/24/outline";
+import { format, fromUnixTime } from "date-fns";
 import Link from "next/link";
 
-type Article = {
-  author: string;
-  title: string;
-  date: string;
-  readingTime: string;
-};
-
-const TRENDING_ARTICLES: Article[] = [
-  {
-    author: "CJ Sullivan",
-    title: "What I Learned in my First 3 Months as a Freelance Data Scientist",
-    date: "Mar 16, 2024",
-    readingTime: "14 min",
-  },
-  {
-    author: "Christine Vallaure",
-    title: "Why UI designers should understand Flexbox and CSS Grid",
-    date: "Mar 17, 2024",
-    readingTime: "16 min",
-  },
-  {
-    author: "Admiral Cloudberg",
-    title:
-      "Insanity in the Air: The crash of Pakistan International Airlines flight 8303",
-    date: "Mar 17, 2024",
-    readingTime: "54 min",
-  },
-  {
-    author: "John Nye",
-    title: "The Political Economy of Dune",
-    date: "Mar 15, 2024",
-    readingTime: "9 min",
-  },
-  {
-    author: "Tim Berners-Lee",
-    title: "Marking the Web's 35th Birthday: An Open Letter",
-    date: "Mar 12, 2024",
-    readingTime: "5 min",
-  },
-  {
-    author: "Bobbie O'Brien",
-    title:
-      'Just Diagnosed with Alzheimer\'s, My Neighbor Said "Now I Know Why People Kill Themselves"',
-    date: "Mar 14, 2024",
-    readingTime: "4 min",
-  },
-];
+import { ARTICLES, type Article } from "@/data/db";
 
 export default function Page() {
   return (
@@ -113,16 +68,35 @@ export default function Page() {
             </div>
 
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
-              {TRENDING_ARTICLES.map((article, index) => (
-                <TrendingArticle
-                  key={article.title}
-                  index={index}
-                  author={article.author}
-                  title={article.title}
-                  date={article.date}
-                  readingTime={article.readingTime}
-                />
-              ))}
+              {ARTICLES.filter((article) => article.id < 7).map(
+                (article, index) => (
+                  <TrendingArticle
+                    key={article.id}
+                    index={index}
+                    {...article}
+                  />
+                ),
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="flex justify-center">
+        <div className="mx-4 w-full max-w-7xl sm:mx-8">
+          <div className="py-12 sm:py-16">
+            <div className="grid grid-cols-12 lg:items-start lg:gap-8 xl:gap-0">
+              <div className="col-span-12 lg:col-span-8 xl:col-span-7">
+                <div className="flex flex-col gap-8 sm:gap-12">
+                  {ARTICLES.sort((a, b) => +b.date - +a.date).map((article) => (
+                    <ArticleCard key={article.id} {...article} />
+                  ))}
+                </div>
+              </div>
+
+              <div className="col-span-4 hidden lg:block xl:col-start-9">
+                Sidebar
+              </div>
             </div>
           </div>
         </div>
@@ -137,8 +111,8 @@ type TrendingArticleProps = Article & {
 
 function TrendingArticle({
   index,
-  author,
   title,
+  author,
   date,
   readingTime,
 }: TrendingArticleProps) {
@@ -152,7 +126,7 @@ function TrendingArticle({
           href="/"
           className="group flex items-center gap-2 *:transition-colors *:duration-300"
         >
-          <div className="h-5 w-5 rounded bg-neutral-600 group-hover:bg-neutral-950" />
+          <div className="h-5 w-5 rounded-full bg-neutral-600 group-hover:bg-neutral-950" />
           <span className="text-xs font-medium group-hover:text-neutral-950">
             {author}
           </span>
@@ -163,12 +137,58 @@ function TrendingArticle({
         >
           {title}
         </Link>
-        <div className="flex items-center gap-2 text-xs text-neutral-500">
-          <span>{date}</span>
+        <div className="flex items-center gap-2 text-xs text-neutral-400">
+          <span>{format(fromUnixTime(+date), "MMM d, yyyy")}</span>
           <span>·</span>
-          <span>{readingTime} read</span>
+          <span>{readingTime} min read</span>
         </div>
       </div>
+    </div>
+  );
+}
+
+function ArticleCard({
+  title,
+  description,
+  author,
+  date,
+  readingTime,
+}: Article) {
+  return (
+    <div className="flex items-start gap-4 sm:gap-6 md:items-center">
+      <div className="flex grow flex-col gap-2 md:gap-3">
+        <Link
+          href="/"
+          className="group flex items-center gap-2 *:transition-colors *:duration-300"
+        >
+          <div className="h-5 w-5 rounded-full bg-neutral-600 group-hover:bg-neutral-950" />
+          <span className="text-xs font-medium group-hover:text-neutral-950">
+            {author}
+          </span>
+        </Link>
+
+        <Link
+          href="/"
+          className="group flex flex-col *:transition-colors *:duration-300 md:gap-1"
+        >
+          <h2 className="line-clamp-2 font-bold leading-tight group-hover:text-neutral-950 md:text-xl md:leading-6">
+            {title}
+          </h2>
+          <p className="hidden leading-tight text-neutral-500 group-hover:text-neutral-950 md:line-clamp-2">
+            {description}
+          </p>
+        </Link>
+
+        <div className="flex items-center gap-2 text-xs text-neutral-400">
+          <span>{format(fromUnixTime(+date), "MMM d, yyyy")}</span>
+          <span>·</span>
+          <span>{readingTime} min read</span>
+        </div>
+      </div>
+
+      <Link href="/" className="shrink-0">
+        <div className="aspect-square w-24 bg-neutral-200 sm:aspect-[4/3] sm:w-36 md:w-48" />
+      </Link>
     </div>
   );
 }
