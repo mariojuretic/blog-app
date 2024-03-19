@@ -82,10 +82,18 @@ export default function Page() {
         </div>
       </div>
 
+      <div className="flex justify-center border-b border-b-neutral-200 lg:hidden">
+        <div className="mx-4 w-full max-w-7xl sm:mx-8">
+          <div className="py-8">
+            <TopicsMenu />
+          </div>
+        </div>
+      </div>
+
       <div className="flex justify-center">
         <div className="mx-4 w-full max-w-7xl sm:mx-8">
           <div className="py-12 sm:py-16">
-            <div className="grid grid-cols-12 lg:items-start lg:gap-8 xl:gap-0">
+            <div className="grid grid-cols-12 lg:gap-8 xl:gap-0">
               <div className="col-span-12 lg:col-span-8 xl:col-span-7">
                 <div className="flex flex-col gap-8 sm:gap-12">
                   {ARTICLES.sort((a, b) => +b.date - +a.date).map((article) => (
@@ -95,7 +103,44 @@ export default function Page() {
               </div>
 
               <div className="col-span-4 hidden lg:block xl:col-start-9">
-                Sidebar
+                <div className="sticky top-28">
+                  <div className="border-b border-b-neutral-200 pb-8">
+                    <TopicsMenu />
+                  </div>
+
+                  <div className="py-8">
+                    <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-neutral-500 *:transition-colors *:duration-300 hover:*:text-neutral-950">
+                      <Link href="/">Help</Link>
+                      <Link href="/">Status</Link>
+                      <Link href="/">About</Link>
+                      <Link href="/">Careers</Link>
+                      <Link href="/">Blog</Link>
+                      <Link href="/">Privacy</Link>
+                      <Link href="/">Terms</Link>
+                      <Link href="/">Text to speech</Link>
+                      <Link href="/">Teams</Link>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="flex justify-center bg-neutral-950 text-white lg:hidden">
+        <div className="mx-4 w-full max-w-7xl sm:mx-8">
+          <div className="py-8">
+            <div className="flex flex-col items-start gap-4">
+              <Link href="/">
+                <span className="block h-8 w-40 rounded bg-white" />
+              </Link>
+
+              <div className="flex flex-wrap gap-x-4 gap-y-2 text-sm hover:*:underline">
+                <Link href="/">About</Link>
+                <Link href="/">Help</Link>
+                <Link href="/">Terms</Link>
+                <Link href="/">Privacy</Link>
               </div>
             </div>
           </div>
@@ -188,6 +233,35 @@ function ArticleCard({
 
       <Link href="/" className="shrink-0">
         <div className="aspect-square w-24 bg-neutral-200 sm:aspect-[4/3] sm:w-36 md:w-48" />
+      </Link>
+    </div>
+  );
+}
+
+function TopicsMenu() {
+  return (
+    <div className="flex flex-col gap-4">
+      <h2 className="font-medium leading-tight">
+        Discover more of what matters to you
+      </h2>
+
+      <div className="flex flex-wrap gap-2 text-sm text-neutral-600 *:rounded-full *:bg-neutral-100 *:px-4 *:py-2 *:transition-colors *:duration-300 hover:*:bg-neutral-200 hover:*:text-neutral-950">
+        <Link href="/">Programming</Link>
+        <Link href="/">Data Science</Link>
+        <Link href="/">Technology</Link>
+        <Link href="/">Self Improvement</Link>
+        <Link href="/">Writing</Link>
+        <Link href="/">Relationships</Link>
+        <Link href="/">Machine Learning</Link>
+        <Link href="/">Productivity</Link>
+        <Link href="/">Politics</Link>
+      </div>
+
+      <Link
+        href="/"
+        className="text-sm text-green-600 transition-colors duration-300 hover:text-green-700"
+      >
+        See more topics
       </Link>
     </div>
   );
