@@ -2,38 +2,13 @@ import { ArrowTrendingUpIcon } from "@heroicons/react/24/outline";
 import { format, fromUnixTime } from "date-fns";
 import Link from "next/link";
 
+import Header from "@/components/Header";
 import { ARTICLES, type Article } from "@/data/db";
 
 export default function Page() {
   return (
     <>
-      <div className="fixed left-0 right-0 top-0 z-50 w-full border-b border-b-neutral-800 bg-yellow-500 transition-colors duration-300">
-        <div className="flex justify-center">
-          <div className="mx-4 w-full max-w-7xl sm:mx-8">
-            <div className="flex h-20 items-center justify-between">
-              <Link href="/">
-                <span className="block h-8 w-40 rounded bg-neutral-800 transition-colors duration-300 hover:bg-neutral-950" />
-              </Link>
-
-              <div className="flex items-center gap-x-4">
-                <Link
-                  href="/"
-                  className="hidden text-sm transition-colors duration-300 hover:text-neutral-950 sm:block"
-                >
-                  Sign in
-                </Link>
-
-                <Link
-                  href="/"
-                  className="rounded-full bg-neutral-800 px-4 py-2 text-sm text-white transition-colors duration-300 hover:bg-neutral-950"
-                >
-                  Get started
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <Header />
 
       <div className="border-b border-b-neutral-800 bg-yellow-500">
         <div className="mb-px h-20" />
@@ -259,7 +234,7 @@ function TopicsMenu() {
 
       <Link
         href="/"
-        className="text-sm text-green-600 transition-colors duration-300 hover:text-green-700"
+        className="text-sm text-green-700 transition-colors duration-300 hover:text-green-800"
       >
         See more topics
       </Link>
