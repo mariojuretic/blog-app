@@ -1,11 +1,11 @@
 import { ArrowTrendingUpIcon } from "@heroicons/react/24/outline";
-import { format, fromUnixTime } from "date-fns";
 import Link from "next/link";
 
+import ArticleList from "@/components/ArticleList";
 import DiscoverTopics from "@/components/DiscoverTopics";
 import Header from "@/components/Header";
 import TrendingArticle from "@/components/TrendingArticle";
-import { ARTICLES, type Article } from "@/data/db";
+import { ARTICLES } from "@/data/db";
 
 export default function Page() {
   return (
@@ -65,17 +65,11 @@ export default function Page() {
         <div className="mx-4 w-full max-w-7xl sm:mx-8">
           <div className="py-12 sm:py-16">
             <div className="grid grid-cols-12 lg:gap-8 xl:gap-0">
-              <div className="col-span-12 lg:col-span-8 xl:col-span-7">
-                <div className="flex flex-col gap-8 sm:gap-12">
-                  {[...ARTICLES]
-                    .sort((a, b) => +b.date - +a.date)
-                    .map((article) => (
-                      <ArticleCard key={article.id} {...article} />
-                    ))}
-                </div>
-              </div>
+              <section className="col-span-12 lg:col-span-8 xl:col-span-7">
+                <ArticleList articles={ARTICLES} />
+              </section>
 
-              <div className="col-span-4 hidden lg:block xl:col-start-9">
+              <aside className="col-span-4 hidden lg:block xl:col-start-9">
                 <div className="sticky top-28">
                   <div className="border-b border-b-neutral-200 pb-8">
                     <DiscoverTopics />
@@ -95,7 +89,7 @@ export default function Page() {
                     </div>
                   </div>
                 </div>
-              </div>
+              </aside>
             </div>
           </div>
         </div>
@@ -120,51 +114,5 @@ export default function Page() {
         </div>
       </div>
     </>
-  );
-}
-
-function ArticleCard({
-  title,
-  description,
-  author,
-  date,
-  readingTime,
-}: Article) {
-  return (
-    <div className="flex items-start gap-4 sm:gap-6 md:items-center">
-      <div className="flex grow flex-col gap-2 md:gap-3">
-        <Link
-          href="/"
-          className="group flex items-center gap-2 *:transition-colors *:duration-300"
-        >
-          <div className="h-5 w-5 rounded-full bg-neutral-600 group-hover:bg-neutral-950" />
-          <span className="text-xs font-medium group-hover:text-neutral-950">
-            {author}
-          </span>
-        </Link>
-
-        <Link
-          href="/"
-          className="group flex flex-col *:transition-colors *:duration-300 md:gap-1"
-        >
-          <h2 className="line-clamp-2 font-bold leading-tight group-hover:text-neutral-950 md:text-xl md:leading-6">
-            {title}
-          </h2>
-          <p className="hidden leading-tight text-neutral-500 group-hover:text-neutral-950 md:line-clamp-2">
-            {description}
-          </p>
-        </Link>
-
-        <div className="flex items-center gap-2 text-xs text-neutral-400">
-          <span>{format(fromUnixTime(+date), "MMM d, yyyy")}</span>
-          <span>·</span>
-          <span>{readingTime} min read</span>
-        </div>
-      </div>
-
-      <Link href="/" className="shrink-0">
-        <div className="aspect-square w-24 bg-neutral-200 sm:aspect-[4/3] sm:w-36 md:w-48" />
-      </Link>
-    </div>
   );
 }
