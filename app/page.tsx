@@ -2,6 +2,7 @@ import { ArrowTrendingUpIcon } from "@heroicons/react/24/outline";
 import { format, fromUnixTime } from "date-fns";
 import Link from "next/link";
 
+import DiscoverTopics from "@/components/DiscoverTopics";
 import Header from "@/components/Header";
 import TrendingArticle from "@/components/TrendingArticle";
 import { ARTICLES, type Article } from "@/data/db";
@@ -55,7 +56,7 @@ export default function Page() {
       <div className="flex justify-center border-b border-b-neutral-200 lg:hidden">
         <div className="mx-4 w-full max-w-7xl sm:mx-8">
           <div className="py-8">
-            <TopicsMenu />
+            <DiscoverTopics />
           </div>
         </div>
       </div>
@@ -77,7 +78,7 @@ export default function Page() {
               <div className="col-span-4 hidden lg:block xl:col-start-9">
                 <div className="sticky top-28">
                   <div className="border-b border-b-neutral-200 pb-8">
-                    <TopicsMenu />
+                    <DiscoverTopics />
                   </div>
 
                   <div className="py-8">
@@ -163,35 +164,6 @@ function ArticleCard({
 
       <Link href="/" className="shrink-0">
         <div className="aspect-square w-24 bg-neutral-200 sm:aspect-[4/3] sm:w-36 md:w-48" />
-      </Link>
-    </div>
-  );
-}
-
-function TopicsMenu() {
-  return (
-    <div className="flex flex-col gap-4">
-      <h2 className="font-medium leading-tight">
-        Discover more of what matters to you
-      </h2>
-
-      <div className="flex flex-wrap gap-2 text-sm text-neutral-600 *:rounded-full *:bg-neutral-100 *:px-4 *:py-2 *:transition-colors *:duration-300 hover:*:bg-neutral-200 hover:*:text-neutral-950">
-        <Link href="/">Programming</Link>
-        <Link href="/">Data Science</Link>
-        <Link href="/">Technology</Link>
-        <Link href="/">Self Improvement</Link>
-        <Link href="/">Writing</Link>
-        <Link href="/">Relationships</Link>
-        <Link href="/">Machine Learning</Link>
-        <Link href="/">Productivity</Link>
-        <Link href="/">Politics</Link>
-      </div>
-
-      <Link
-        href="/"
-        className="text-sm text-green-700 transition-colors duration-300 hover:text-green-800"
-      >
-        See more topics
       </Link>
     </div>
   );

@@ -208,3 +208,47 @@ export const ARTICLES: Article[] = [
     readingTime: 20,
   },
 ];
+
+export type Topic = {
+  id: number;
+  name: string;
+};
+
+export const TOPICS: Topic[] = [
+  {
+    id: 1,
+    name: "Programming",
+  },
+  {
+    id: 2,
+    name: "Data Science",
+  },
+  {
+    id: 3,
+    name: "Technology",
+  },
+  {
+    id: 4,
+    name: "Self Improvement",
+  },
+  {
+    id: 5,
+    name: "Writing",
+  },
+  {
+    id: 6,
+    name: "Relationships",
+  },
+  {
+    id: 7,
+    name: "Machine Learning",
+  },
+  {
+    id: 8,
+    name: "Productivity",
+  },
+  {
+    id: 9,
+    name: "Politics",
+  },
+];
