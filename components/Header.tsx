@@ -27,19 +27,16 @@ export default function Header() {
         <div className="mx-4 w-full max-w-7xl sm:mx-8">
           <div className="flex h-20 items-center justify-between">
             <Link href="/">
-              <span className="block h-8 w-40 rounded bg-neutral-800 transition-colors duration-300 hover:bg-neutral-950" />
+              <div className="block h-8 w-40 rounded bg-neutral-800 transition-colors duration-300 hover:bg-neutral-950" />
             </Link>
 
             <div className="flex items-center gap-x-4 text-sm *:transition-colors *:duration-300">
-              <Link
-                href="/sign-in"
-                className="hidden hover:text-neutral-950 sm:block"
-              >
+              <Link href="#" className="hidden hover:text-neutral-950 sm:block">
                 Sign in
               </Link>
 
               <Link
-                href="/sign-up"
+                href="#"
                 className={`rounded-full ${scrolling ? "bg-green-700 hover:bg-green-800" : "bg-neutral-800 hover:bg-neutral-950"} px-4 py-2 text-white`}
               >
                 Get started

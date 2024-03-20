@@ -3,6 +3,7 @@ import { format, fromUnixTime } from "date-fns";
 import Link from "next/link";
 
 import Header from "@/components/Header";
+import TrendingArticle from "@/components/TrendingArticle";
 import { ARTICLES, type Article } from "@/data/db";
 
 export default function Page() {
@@ -24,7 +25,7 @@ export default function Page() {
                 topic.
               </h3>
               <Link
-                href="/"
+                href="#"
                 className="rounded-full bg-neutral-800 px-8 py-2 text-lg text-white transition-colors duration-300 hover:bg-neutral-950"
               >
                 Start reading
@@ -38,20 +39,14 @@ export default function Page() {
         <div className="mx-4 w-full max-w-7xl sm:mx-8">
           <div className="py-12">
             <div className="mb-8 flex items-center gap-x-4">
-              <ArrowTrendingUpIcon className="h-6 w-6 shrink-0 rounded-full border border-neutral-800 text-neutral-800" />
-              <h2 className="font-medium">Trending on Medium</h2>
+              <ArrowTrendingUpIcon className="h-5 w-5 shrink-0 rounded-full border border-neutral-800 text-neutral-800" />
+              <h2 className="font-medium leading-tight">Trending on Medium</h2>
             </div>
 
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
-              {ARTICLES.filter((article) => article.id < 7).map(
-                (article, index) => (
-                  <TrendingArticle
-                    key={article.id}
-                    index={index}
-                    {...article}
-                  />
-                ),
-              )}
+              {...ARTICLES.slice(0, 6).map((article, index) => (
+                <TrendingArticle key={article.id} index={index} {...article} />
+              ))}
             </div>
           </div>
         </div>
@@ -71,9 +66,11 @@ export default function Page() {
             <div className="grid grid-cols-12 lg:gap-8 xl:gap-0">
               <div className="col-span-12 lg:col-span-8 xl:col-span-7">
                 <div className="flex flex-col gap-8 sm:gap-12">
-                  {ARTICLES.sort((a, b) => +b.date - +a.date).map((article) => (
-                    <ArticleCard key={article.id} {...article} />
-                  ))}
+                  {[...ARTICLES]
+                    .sort((a, b) => +b.date - +a.date)
+                    .map((article) => (
+                      <ArticleCard key={article.id} {...article} />
+                    ))}
                 </div>
               </div>
 
@@ -122,48 +119,6 @@ export default function Page() {
         </div>
       </div>
     </>
-  );
-}
-
-type TrendingArticleProps = Article & {
-  index: number;
-};
-
-function TrendingArticle({
-  index,
-  title,
-  author,
-  date,
-  readingTime,
-}: TrendingArticleProps) {
-  return (
-    <div className="flex items-start gap-4">
-      <span className="flex h-8 w-8 shrink-0 -translate-y-1.5 items-center justify-center text-3xl font-medium leading-none tracking-tighter text-neutral-200">
-        0{index + 1}
-      </span>
-      <div className="flex grow flex-col gap-2">
-        <Link
-          href="/"
-          className="group flex items-center gap-2 *:transition-colors *:duration-300"
-        >
-          <div className="h-5 w-5 rounded-full bg-neutral-600 group-hover:bg-neutral-950" />
-          <span className="text-xs font-medium group-hover:text-neutral-950">
-            {author}
-          </span>
-        </Link>
-        <Link
-          href="/"
-          className="line-clamp-2 font-bold leading-tight transition-colors duration-300 hover:text-neutral-950"
-        >
-          {title}
-        </Link>
-        <div className="flex items-center gap-2 text-xs text-neutral-400">
-          <span>{format(fromUnixTime(+date), "MMM d, yyyy")}</span>
-          <span>·</span>
-          <span>{readingTime} min read</span>
-        </div>
-      </div>
-    </div>
   );
 }
 
