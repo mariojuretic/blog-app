@@ -3,6 +3,7 @@ import Link from "next/link";
 
 import ArticleList from "@/components/ArticleList";
 import DiscoverTopics from "@/components/DiscoverTopics";
+import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import TrendingArticle from "@/components/TrendingArticle";
 import { ARTICLES } from "@/data/db";
@@ -77,15 +78,15 @@ export default function Page() {
 
                   <div className="py-8">
                     <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-neutral-500 *:transition-colors *:duration-300 hover:*:text-neutral-950">
-                      <Link href="/">Help</Link>
-                      <Link href="/">Status</Link>
-                      <Link href="/">About</Link>
-                      <Link href="/">Careers</Link>
-                      <Link href="/">Blog</Link>
-                      <Link href="/">Privacy</Link>
-                      <Link href="/">Terms</Link>
-                      <Link href="/">Text to speech</Link>
-                      <Link href="/">Teams</Link>
+                      <Link href="/#">Help</Link>
+                      <Link href="/#">Status</Link>
+                      <Link href="/#">About</Link>
+                      <Link href="/#">Careers</Link>
+                      <Link href="/#">Blog</Link>
+                      <Link href="/#">Privacy</Link>
+                      <Link href="/#">Terms</Link>
+                      <Link href="/#">Text to speech</Link>
+                      <Link href="/#">Teams</Link>
                     </div>
                   </div>
                 </div>
@@ -95,24 +96,7 @@ export default function Page() {
         </div>
       </div>
 
-      <div className="flex justify-center bg-neutral-950 text-white lg:hidden">
-        <div className="mx-4 w-full max-w-7xl sm:mx-8">
-          <div className="py-8">
-            <div className="flex flex-col items-start gap-4">
-              <Link href="/">
-                <span className="block h-8 w-40 rounded bg-white" />
-              </Link>
-
-              <div className="flex flex-wrap gap-x-4 gap-y-2 text-sm hover:*:underline">
-                <Link href="/">About</Link>
-                <Link href="/">Help</Link>
-                <Link href="/">Terms</Link>
-                <Link href="/">Privacy</Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <Footer />
     </>
   );
 }
